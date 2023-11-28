@@ -1,0 +1,9 @@
+{
+  "name": "ubuntuAiderPython",
+  "image": "mcr.microsoft.com/devcontainers/miniconda:3",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {}
+  },
+  "forwardPorts": [3000, 5000],
+  "postCreateCommand": "chmod +x .devcontainer/postCreate.sh && .devcontainer/postCreate.sh"
+}
