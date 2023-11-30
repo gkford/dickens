@@ -1,0 +1,77 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Simple File Server API
+  license:
+    name: MIT
+servers:
+  - url: https://aiwriter.ngrok.dev
+paths:
+  /:
+    get:
+      summary: Welcome message
+      operationId: home
+      responses:
+        '200':
+          description: Returns a welcome message
+          content:
+            text/plain:
+              schema:
+                type: string
+  /read:
+    get:
+      summary: Read file contents
+      operationId: readFile
+      responses:
+        '200':
+          description: Contents of the data file
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /write:
+    post:
+      summary: Write to a file
+      operationId: writeFile
+      requestBody:
+        description: Content to be written to the file
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+      responses:
+        '200':
+          description: Confirmation of data written
+          content:
+            text/plain:
+              schema:
+                type: string
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
